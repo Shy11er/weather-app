@@ -1,22 +1,35 @@
 import React, { useState } from 'react'
+import { rainFun } from './rain'
 
 function App() {
   const [ location, setLocation ] = useState('')
   const [ data, setData ] = useState({})
+  const [ cities, setSities ] = useState([
+    'Paris',
+    'New York',
+    'Moscow',
+    'Tokyo',
+    'Ottawa',
+    'Berlin',
+  ]);
 
   let city = data.name
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=20f1ae8ab542849c0bc3f7bd808ce905`
+  const searchLocation = (location) => {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=20f1ae8ab542849c0bc3f7bd808ce905`;
 
-  const searchLocation = (event) => {
+    fetch(url)
+    .then(res => res.json())
+    .then(result => {
+      setLocation('')
+      setData (result)
+      console.log(result)
+    })
+  }
+  
+  const onSearchInputClick = (event) => {
     if (event.key === 'Enter') {
-      fetch(url)
-      .then(res => res.json())
-      .then(result => {
-        setLocation('')
-        setData (result)
-        console.log(result)
-      })
+      searchLocation(location)
     }
   }
 
@@ -43,35 +56,31 @@ function App() {
     };
   }
 
+  
 
   const dateBuilder = (d) => {
+    const app = document.getElementById('app')
+    
     if (!data.timezone) {
       return ''
     }else {
-      return (d.toISOString().replace('T', ' / ').slice(0,-5)) // 2022-08-11 / 18:19:40
+      let time = '';
+      time = d.toISOString().replace('T', ' / ').slice(0,-5)
+
+      let t = parseInt(time.slice(13,15))
+      console.log(t)
+     
+      if ( 6 <= t && t < 18) {
+        app.style.backgroundImage = "url('http://localhost:3000/static/media/morning.a61f24811c1d1b9dc829.png')"
+      }else if (18 <= t && t < 23) {
+        app.style.backgroundImage = "url('http://localhost:3000/static/media/evening.7d2b1c5a5cd94417f441.jpg')"
+      }else{
+        app.style.backgroundImage = "url('http://localhost:3000/static/media/night.01b8dc4ea91c4d834fe3.png')"
+      }
+
+      return (time) // 2022-08-11 / 18:19:40
     }
   }
-
-  const weather = () => {
-    let description = document.getElementById('weather_description')
-
-
-  }
-
-  const setBackground = () => {
-    let time = parseInt(dateBuilder.slice(13,15))
-    console.log(time)
-    let app = document.getElementById('app')
-
-    if ( 0 <= time <=6 ) {
-      app.style.background = `url('./images/night.png') no-repeat center center/cover` 
-    } else if (6 < time <= 18) {
-      app.style.background = `url('./images/morning.png') no-repeat center center/cover` 
-    }else if (18 < time < 0) {
-      app.style.background = `url('./images/evening.jpg') no-repeat center center/cover` 
-    }
-  }
-
 
   return (
     <div id='app'>
@@ -108,10 +117,16 @@ function App() {
           value={location}
           onChange={event => setLocation(event.target.value)}
           type='text'
-          onKeyPress={searchLocation}
+          onKeyPress={onSearchInputClick}
           />
         </div>
-        <ul id='cities'></ul>
+        <ul id='cities'>
+          { cities.map((city) => (
+            <li key={city} className='city'
+              onClick={() => searchLocation(city)}
+            >{city}</li>
+          )) }
+        </ul>
         <div className='main_line'>
           <div className='line' id='right-sect'></div>
         </div>
