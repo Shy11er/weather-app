@@ -1,13 +1,197 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
+@font-face {
+  font-family: 'Josefin Sans', sans-serif;
+  src: url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+}
+@font-face {
+  font-family: 'Raleway', sans-serif;
+  src: url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+}
+
+hr{
+  width: 50px;
+  border-color: transparent;
+  border-right-color: rgba(255, 255, 255, 0.7);
+  border-right-width: 50px;
+  position: absolute;
+  bottom: 100%;
+  transform-origin: 100% 50%;
+  animation-name: rain;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes rain {
+  from {
+   transform: rotate(105deg) translateX(0);
+  }
+ 
+  to {
+   transform: rotate(105deg) translateX(calc(100vh + 20px));
+  }
+ }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+ul{
+  box-sizing: border-box;
+  padding: 30px;
+}
+
+.section{
+  font-family: 'Josefin Sans';
+  font-weight: 200;
+  font-size: 20px;
+  color: #fff;
+}
+
+#weather_logo{
+  filter: invert();
+}
+
+#h2{
+  font-family: 'Raleway';
+  font-weight: 500;
+  color: #fff;
+}
+
+.logo_image{
+  width: 50px;
+  height: 50px;
+  color: #fff;
+}
+
+.left{
+  width: 70%;
+  position: absolute;
+}
+
+.left-top{
+  height: 50vh;
+  padding-left: 100px;
+}
+
+.left-bottom{
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+}
+
+#temp{
+  font-size: 180px;
+}
+
+#city{
+  font-size: 50px;
+  font-weight: 700;
+}
+
+#weather_description{
+  font-size: 24px;
+}
+
+.logo{
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 30px;
+}
+
+.right{
+  width: 30%;
+  height: 100vh;
+  right: 0;
+  background-color: rgba(39, 39, 39, 0.61);
+  backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+.input{
+  padding: 30px;
+}
+
+input {
+  outline: none;
+  height: 50px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.61);
+  background: none;
+  color: rgba(255, 255, 255, 0.61);
+  font-family: 'Raleway';
+  font-size: 24px;
+}
+
+::placeholder{
+  color: rgba(255, 255, 255, 0.61);
+  font-family: 'Raleway';
+  font-size: 20px;
+}
+
+#app {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: url('./images/evening.jpg') no-repeat center center/cover;
+  background-size: cover;
+  font-family: 'Josefin Sans';
+  color:#fff;
+}
+
+.main_line{
+  padding: 0 30px;
+}
+
+h3{
+  color:rgba(255, 255, 255, 0.61);
+  font-family: 'Raleway';
+}
+
+.line{
+  width: 100%;
+  height: 1px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.61);
+}
+#cities{
+  height: 400px;
+  width: 100%;
+}
+#weather_info{
+  height: 400px;
+  width: 100%;
+}
+
+#main_info{
+  margin: 2.5em 0;
+  color:rgba(255, 255, 255, 0.61);
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
 }
